@@ -1,6 +1,6 @@
 section .bss
     name resb 12
-    ansq1 resb 4
+    ansq1 resb 5
 
 section .data
     msg db "[!] Welcome to this Quizzer!", 0Ah
@@ -34,6 +34,12 @@ rightq1:
     mov byte [msg2+8],'t'
     mov byte [msg2+9],'!'
     mov byte [msg2+10],0Ah
+
+    mov ecx,msg2
+    mov edx,11
+    int 0x80
+
+    jmp goodbye
 
 wrongq1:
     mov eax,4
@@ -115,13 +121,26 @@ _start:
     mov eax,3
     xor ebx,ebx
     mov ecx,ansq1
-    mov edx,4
+    mov edx,5
     int 0x80            ; <answer for first ques>
 
-    xor eax,eax
     xor ebx,ebx
-    mov eax, [ansq1]
-    mov ebx,1947
-    cmp eax,ebx
-    jne rightq1
-    je wrongq1
+    xor eax,eax
+    xor ecx,ecx
+    jmp convert    
+
+done:
+    cmp ebx,1947
+    je rightq1
+    jne wrongq1
+    jmp goodbye
+
+convert:
+    mov al, [ansq1+ecx]
+    cmp al,10
+    je done
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp convert
