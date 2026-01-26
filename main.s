@@ -14,6 +14,7 @@ section .data
 
 section .text
 global _start
+
 goodbye:
     mov eax,1
     mov ebx,1
@@ -49,8 +50,10 @@ ifanswaswrong:
     mov ecx,disclaim
     mov edx,disclaiml
     int 0x80
-
-    jmp goodbye    
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp _start    
 
 wrongq1:
     mov eax,4
