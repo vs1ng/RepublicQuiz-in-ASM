@@ -9,6 +9,8 @@ section .data
     msg2l equ $-msg2
     q1 db "[?] What year did India gain indpendence? "
     q1l equ $-q1
+    disclaim db "It's alright, we shall start again :)",0Ah
+    disclaiml equ $-disclaim
 
 section .text
 global _start
@@ -41,6 +43,15 @@ rightq1:
 
     jmp goodbye
 
+ifanswaswrong:
+    mov eax,4
+    mov ebx,1
+    mov ecx,disclaim
+    mov edx,disclaiml
+    int 0x80
+
+    jmp goodbye    
+
 wrongq1:
     mov eax,4
     mov ebx,1
@@ -63,7 +74,7 @@ wrongq1:
     mov edx,11
     int 0x80
 
-    jmp goodbye
+    jmp ifanswaswrong
 
 _start:
     mov eax,4
