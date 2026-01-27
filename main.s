@@ -20,6 +20,19 @@ goodbye:
     mov ebx,1
     int 0x80
 
+q2:
+    mov eax,4
+    mov ebx,1
+    
+    mov byte [q1],0x0A
+    mov byte [q1+1],0
+    
+    mov byte [q1],'['
+    mov byte [q1+1],'?'
+    mov byte [q1+2],']'
+    mov byte [q1+3],' '
+    mov byte [q1+4],'   ; [?] What date in november was the first draft created?
+
 rightq1:
     mov eax,4
     mov ebx,1
@@ -42,7 +55,7 @@ rightq1:
     mov edx,11
     int 0x80
 
-    jmp goodbye
+    jmp q2
 
 ifanswaswrong:
     mov eax,4
@@ -50,10 +63,10 @@ ifanswaswrong:
     mov ecx,disclaim
     mov edx,disclaiml
     int 0x80
-    xor eax,eax
-    xor ebx,ebx
-    xor ecx,ecx
-    jmp _start    
+
+    mov eax,4
+    mov ebx,1
+    int 0x80    
 
 wrongq1:
     mov eax,4
