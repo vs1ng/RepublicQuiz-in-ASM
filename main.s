@@ -1,6 +1,8 @@
 section .bss
     name resb 12
     ansq1 resb 5
+    ansq2 resb 5
+    ansq3 resb 3    
 
 section .data
     msg db "[!] Welcome to this Quizzer!", 0Ah
@@ -11,6 +13,10 @@ section .data
     q1l equ $-q1
     disclaim db "It's alright, we shall start again :)",0Ah
     disclaiml equ $-disclaim
+    q3 db "[?] How many spokes are in the wheel in our flag? ",0
+    q3l equ $-q3
+    ext db "All correct, Well done!",0Ah
+    extl equ $-ext 
 
 section .text
 global _start
@@ -26,12 +32,124 @@ q2:
     
     mov byte [q1],0x0A
     mov byte [q1+1],0
-    
+
     mov byte [q1],'['
     mov byte [q1+1],'?'
     mov byte [q1+2],']'
     mov byte [q1+3],' '
-    mov byte [q1+4],'   ; [?] What date in november was the first draft created?
+    mov byte [q1+4],'W'
+    mov byte [q1+5],'h'
+    mov byte [q1+6],'a'
+    mov byte [q1+7],'t'
+    mov byte [q1+8],' '
+    mov byte [q1+9],'y'
+    mov byte [q1+10],'e'
+    mov byte [q1+11],'a'
+    mov byte [q1+12],'r'
+    mov byte [q1+13],' '
+    mov byte [q1+14],'w'
+    mov byte [q1+15],'a'
+    mov byte [q1+16],'s'
+    mov byte [q1+17],' '
+    mov byte [q1+18],'r'
+    mov byte [q1+19],'e'
+    mov byte [q1+20],'p'
+    mov byte [q1+21],'u'
+    mov byte [q1+22],'b'
+    mov byte [q1+23],'l'
+    mov byte [q1+24],'i'
+    mov byte [q1+25],'c'
+    mov byte [q1+26],' '
+    mov byte [q1+27],'d'
+    mov byte [q1+28],'a'
+    mov byte [q1+29],'y'
+    mov byte [q1+30],'?'  
+    mov byte [q1+31],' '
+    mov byte [q1+32],0
+    mov ecx,q1
+    mov edx,33
+    int 0x80
+
+    mov eax,3
+    xor ebx,ebx
+    mov ecx,ansq2
+    mov edx,5
+    int 0x80
+
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+        
+    jmp converta2
+
+qq3:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q3
+    mov edx,q3l
+    int 0x80
+
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq3
+    mov edx,3
+    int 0x80
+
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+
+    jmp converta3
+
+donea3:
+    cmp ebx,24 
+    je final_thanks
+    jne wrongq1
+    jmp goodbye
+
+final_thanks:
+    mov eax,4
+    mov ebx,1
+    mov ecx,ext
+    mov edx,extl
+    int 0x80
+
+    jmp goodbye    
+
+converta3:
+    mov al, [ansq3+ecx]
+    cmp al,10
+    je donea3
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta3
+
+rightq2:
+    mov eax,4
+    mov ebx,1
+    mov ecx,msg2
+    mov edx,11
+    int 0x80
+    
+    jmp qq3
+
+donea2:
+    cmp ebx,1950
+    je rightq2
+    jne wrongq1
+    jmp goodbye
+
+converta2:
+    mov al, [ansq2+ecx]
+    cmp al,10
+    je donea2
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta2
 
 rightq1:
     mov eax,4
@@ -64,9 +182,7 @@ ifanswaswrong:
     mov edx,disclaiml
     int 0x80
 
-    mov eax,4
-    mov ebx,1
-    int 0x80    
+    jmp goodbye    
 
 wrongq1:
     mov eax,4
@@ -154,20 +270,20 @@ _start:
     xor ebx,ebx
     xor eax,eax
     xor ecx,ecx
-    jmp convert    
+    jmp converta1  
 
-done:
+donea1:
     cmp ebx,1947
     je rightq1
     jne wrongq1
     jmp goodbye
 
-convert:
+converta1:
     mov al, [ansq1+ecx]
     cmp al,10
-    je done
+    je donea1
     sub al,'0'
     imul ebx,ebx,10
     add ebx,eax
     inc ecx
-    jmp convert
+    jmp converta1
