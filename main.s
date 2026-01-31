@@ -2,7 +2,17 @@ section .bss
     name resb 12
     ansq1 resb 5
     ansq2 resb 5
-    ansq3 resb 3    
+    ansq3 resb 3
+    ansq4 resb 5
+    ansq5 resb 5
+    ansq6 resb 5
+    ansq7 resb 5
+    ansq8 resb 5
+    ansq9 resb 5
+    ansq10 resb 5
+    ansq11 resb 5
+    ansq12 resb 5
+    ansq13 resb 5    
 
 section .data
     msg db "[!] Welcome to this Quizzer!", 0Ah
@@ -15,6 +25,26 @@ section .data
     disclaiml equ $-disclaim
     q3 db "[?] How many spokes are in the wheel in our flag? ",0
     q3l equ $-q3
+    q4 db "[?] Who was the first Prime Minister of India? (1=Nehru, 2=Gandhi) ",0
+    q4l equ $-q4
+    q5 db "[?] In which year was the Constitution adopted? ",0
+    q5l equ $-q5
+    q6 db "[?] How many states are in India? ",0
+    q6l equ $-q6
+    q7 db "[?] What is the capital of India? (1=Delhi, 2=Mumbai) ",0
+    q7l equ $-q7
+    q8 db "[?] Who wrote the national anthem? (1=Tagore, 2=Iqbal) ",0
+    q8l equ $-q8
+    q9 db "[?] What year did Goa join India? ",0
+    q9l equ $-q9
+    q10 db "[?] How many union territories are there? ",0
+    q10l equ $-q10
+    q11 db "[?] What is India's national bird? (1=Peacock, 2=Eagle) ",0
+    q11l equ $-q11
+    q12 db "[?] Which river is considered most sacred? (1=Ganga, 2=Yamuna) ",0
+    q12l equ $-q12
+    q13 db "[?] What year was the first general election? ",0
+    q13l equ $-q13
     ext db "All correct, Well done!",0Ah
     extl equ $-ext 
 
@@ -103,6 +133,326 @@ qq3:
 
 donea3:
     cmp ebx,24 
+    je q4
+    jne wrongq1
+    jmp goodbye
+
+q4:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q4
+    mov edx,q4l
+    int 0x80
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq4
+    mov edx,5
+    int 0x80
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp converta4
+
+converta4:
+    mov al, [ansq4+ecx]
+    cmp al,10
+    je donea4
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta4
+
+donea4:
+    cmp ebx,1
+    je q5
+    jne wrongq1
+    jmp goodbye
+
+q5:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q5
+    mov edx,q5l
+    int 0x80
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq5
+    mov edx,5
+    int 0x80
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp converta5
+
+converta5:
+    mov al, [ansq5+ecx]
+    cmp al,10
+    je donea5
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta5
+
+donea5:
+    cmp ebx,1950
+    je q6
+    jne wrongq1
+    jmp goodbye
+
+q6:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q6
+    mov edx,q6l
+    int 0x80
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq6
+    mov edx,5
+    int 0x80
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp converta6
+
+converta6:
+    mov al, [ansq6+ecx]
+    cmp al,10
+    je donea6
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta6
+
+donea6:
+    cmp ebx,28
+    je q7
+    jne wrongq1
+    jmp goodbye
+
+q7:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q7
+    mov edx,q7l
+    int 0x80
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq7
+    mov edx,5
+    int 0x80
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp converta7
+
+converta7:
+    mov al, [ansq7+ecx]
+    cmp al,10
+    je donea7
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta7
+
+donea7:
+    cmp ebx,1
+    je q8
+    jne wrongq1
+    jmp goodbye
+
+q8:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q8
+    mov edx,q8l
+    int 0x80
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq8
+    mov edx,5
+    int 0x80
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp converta8
+
+converta8:
+    mov al, [ansq8+ecx]
+    cmp al,10
+    je donea8
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta8
+
+donea8:
+    cmp ebx,1
+    je q9
+    jne wrongq1
+    jmp goodbye
+
+q9:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q9
+    mov edx,q9l
+    int 0x80
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq9
+    mov edx,5
+    int 0x80
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp converta9
+
+converta9:
+    mov al, [ansq9+ecx]
+    cmp al,10
+    je donea9
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta9
+
+donea9:
+    cmp ebx,1961
+    je q10
+    jne wrongq1
+    jmp goodbye
+
+q10:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q10
+    mov edx,q10l
+    int 0x80
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq10
+    mov edx,5
+    int 0x80
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp converta10
+
+converta10:
+    mov al, [ansq10+ecx]
+    cmp al,10
+    je donea10
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta10
+
+donea10:
+    cmp ebx,8
+    je q11
+    jne wrongq1
+    jmp goodbye
+
+q11:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q11
+    mov edx,q11l
+    int 0x80
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq11
+    mov edx,5
+    int 0x80
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp converta11
+
+converta11:
+    mov al, [ansq11+ecx]
+    cmp al,10
+    je donea11
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta11
+
+donea11:
+    cmp ebx,1
+    je q12
+    jne wrongq1
+    jmp goodbye
+
+q12:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q12
+    mov edx,q12l
+    int 0x80
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq12
+    mov edx,5
+    int 0x80
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp converta12
+
+converta12:
+    mov al, [ansq12+ecx]
+    cmp al,10
+    je donea12
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta12
+
+donea12:
+    cmp ebx,1
+    je q13
+    jne wrongq1
+    jmp goodbye
+
+q13:
+    mov eax,4
+    mov ebx,1
+    mov ecx,q13
+    mov edx,q13l
+    int 0x80
+    mov eax,3
+    xor ebx,0
+    mov ecx,ansq13
+    mov edx,5
+    int 0x80
+    xor eax,eax
+    xor ebx,ebx
+    xor ecx,ecx
+    jmp converta13
+
+converta13:
+    mov al, [ansq13+ecx]
+    cmp al,10
+    je donea13
+    sub al,'0'
+    imul ebx,ebx,10
+    add ebx,eax
+    inc ecx
+    jmp converta13
+
+donea13:
+    cmp ebx,1951
     je final_thanks
     jne wrongq1
     jmp goodbye
